@@ -1,21 +1,60 @@
-
-body {
-    font-family: Arial, sans-serif;
+/* navbar */
+.navbar {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Add a light border at the bottom */
 }
 
 .navbar-brand {
-    font-weight: bold;
+    font-weight: bold; /* Make the brand name bold */
 }
 
+.navbar-nav .nav-link {
+    color: #333; /* Darken the default link color */
+}
+
+.navbar-nav .nav-link:hover {
+    color: #007bff; /* Change link color on hover */
+}
+
+/* Jumbotron */
 .jumbotron {
-    background-color: #f8f9fa;
+    background-color: #f8f9fa; /* Light grey background */
+    padding: 2rem;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
 }
 
+.jumbotron h1 {
+    font-weight: bold; /* Make the main heading bold */
+}
+
+.jumbotron p {
+    font-size: 18px; /* Increase font size for regular paragraphs */
+}
+
+.jumbotron .btn-primary {
+    margin-right: 10px; /* Add space between buttons */
+}
+
+/* Image Section */
+.img-fluid {
+    max-width: 100%; /* Make the image responsive */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+/* Footer */
 .footer {
+    background-color: #f8f9fa; /* Light grey background */
+    text-align: center;
+    padding: 20px 0;
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
-    text-align: center;
+}
+
+.footer span {
+    font-size: 14px; /* Adjust font size */
+    color: #6c757d; /* Light grey text color */
 }
 
