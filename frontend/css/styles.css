@@ -1,60 +1,47 @@
-/* navbar */
-.navbar {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Add a light border at the bottom */
-}
-
-.navbar-brand {
+.vbar-brand {
     font-weight: bold; /* Make the brand name bold */
 }
+/* Global styles */
 
-.navbar-nav .nav-link {
-    color: #333; /* Darken the default link color */
+body {
+    font-family: Arial, sans-serif;
 }
 
-.navbar-nav .nav-link:hover {
-    color: #007bff; /* Change link color on hover */
-}
-
-/* Jumbotron */
-.jumbotron {
+.navbar {
     background-color: #f8f9fa; /* Light grey background */
-    padding: 2rem;
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
 }
 
-.jumbotron h1 {
-    font-weight: bold; /* Make the main heading bold */
+.container {
+    max-width: 900px; /* Limit container width for better readability */
 }
 
-.jumbotron p {
-    font-size: 18px; /* Increase font size for regular paragraphs */
-}
-
-.jumbotron .btn-primary {
-    margin-right: 10px; /* Add space between buttons */
-}
-
-/* Image Section */
-.img-fluid {
-    max-width: 100%; /* Make the image responsive */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
-}
-
-/* Footer */
 .footer {
-    background-color: #f8f9fa; /* Light grey background */
-    text-align: center;
-    padding: 20px 0;
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
+    background-color: #f8f9fa; /* Light grey background */
+    text-align: center;
+    padding: 10px 0;
 }
 
 .footer span {
     font-size: 14px; /* Adjust font size */
     color: #6c757d; /* Light grey text color */
+}
+
+/* Specific styles for login form */
+
+#loginForm {
+    max-width: 400px;
+    margin: auto;
+}
+
+#loginForm .form-group {
+    margin-bottom: 15px;
+}
+
+#loginForm button {
+    width: 100%;
 }
 
