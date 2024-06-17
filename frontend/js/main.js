@@ -1,4 +1,4 @@
-ddEventListener('DOMContentLoaded', function () {
+document.ddEventListener('DOMContentLoaded', function () {
     // Select the login form
     const loginForm = document.getElementById('loginForm');
 
