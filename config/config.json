@@ -1,0 +1,24 @@
+{
+    "development": {
+      "username": "root",
+      "password": "secure_password",
+      "database": "smart_waste_management_db",
+      "host": "127.0.0.1",
+      "dialect": "mysql"
+    },
+    "test": {
+      "username": "root",
+      "password": "secure_password",
+      "database": "smart_waste_management_db_test",
+      "host": "127.0.0.1",
+      "dialect": "mysql"
+    },
+    "production": {
+      "username": "root",
+      "password": "secure_password",
+      "database": "smart_waste_management_db_production",
+      "host": "127.0.0.1",
+      "dialect": "mysql"
+    }
+  }
+  
