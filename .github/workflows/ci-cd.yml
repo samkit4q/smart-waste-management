@@ -1,0 +1,61 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:latest
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_DATABASE: smart_waste_management_db
+          MYSQL_USER: root 
+          MYSQL_PASSWORD: secure_password
+          MYSQL_ROOT_PASSWORD: secure_password
+        options: >-
+          --health-cmd "mysqladmin ping --silent"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 3
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Wait for MySQL to be ready
+      run: |
+        until mysqladmin ping -h "127.0.0.1" --silent; do
+          echo 'waiting for mysql...'
+          sleep 5
+        done
+
+    - name: Set up database
+      run: |
+        mysql -h 127.0.0.1 -u root -psecure_password -e "CREATE DATABASE IF NOT EXISTS smart_waste_management_db;"
+        mysql -h 127.0.0.1 -u root -psecure_password smart_waste_management_db < ./path/to/your/schema.sql
+
+    - name: Run tests
+      env:
+        DB_HOST: 127.0.0.1
+        DB_USER: root
+        DB_PASSWORD: secure_password
+        DB_NAME: 
+      run: npm test
