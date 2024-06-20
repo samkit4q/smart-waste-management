@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Recycling Efforts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f7f7f7;
+    }
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    header h1 {
+      margin: 0;
+      flex: 1;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    nav ul li {
+      display: inline;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      background-color: #45a049;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+    nav ul li a:hover {
+      background-color: #3e8e41;
+    }
+    .container {
+      padding: 2rem;
+    }
+    .recycle-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .recycle-list {
+      margin-top: 1rem;
+    }
+    .recycle-item {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .recycle-item p {
+      margin: 0;
+    }
+    .recycle-item .details {
+      display: flex;
+      flex-direction: column;
+    }
+    .recycle-item .actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .recycle-item .actions button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .recycle-item .actions .edit-btn {
+      background-color: #ffc107;
+      color: white;
+    }
+    .recycle-item .actions .delete-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+    .hidden {
+      display: none;
+    }
+    footer {
+      background-color: #f4f4f4;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+    footer p {
+      margin: 0.5rem 0;
+    }
+    footer a {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Track Recycling Efforts</h1>
+    <nav>
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="login.html">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h2>Record Your Recycling Effort</h2>
+    <form id="recyclingForm">
+      <div>
+        <label for="item">Item:</label>
+        <input type="text" id="item" name="item" required>
+      </div>
+      <div>
+        <label for="amountRecycled">Amount Recycled (kg):</label>
+        <input type="number" id="amountRecycled" name="amountRecycled" required>
+      </div>
+      <div>
+        <label for="recyclingDate">Date:</label>
+        <input type="date" id="recyclingDate" name="recyclingDate" required>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+
+    <div class="recycle-list" id="recycleList"></div>
+  </div>
+
+  <footer>
+    <p>&copy; 2024 Smart Waste Management</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.getElementById('recyclingForm');
+      const recycleList = document.getElementById('recycleList');
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const item = document.getElementById('item').value;
+        const amountRecycled = document.getElementById('amountRecycled').value;
+        const recyclingDate = document.getElementById('recyclingDate').value;
+
+        // Assuming an API endpoint exists to handle the form submission
+        fetch('/recycle', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            item: item,
+            amountRecycled: amountRecycled,
+            recyclingDate: recyclingDate
+          })
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+          }
+          return response.json();
+        })
+        .then(data => {
+          if (data.success) {
+            addRecyclingEffortToList(data.recyclingEffort);
+            form.reset();
+          } else {
+            alert('Error: ' + data.message);
+          }
+        })
+        .catch(error => {
+          console.error('There was a problem with the fetch operation:', error);
+          alert('An error occurred: ' + error.message);
+        });
+      });
+
+      function addRecyclingEffortToList(recyclingEffort) {
+        const div = document.createElement('div');
+        div.className = 'recycle-item';
+        div.innerHTML = `
+          <div class="details">
+            <p><strong>Item:</strong> ${recyclingEffort.item}</p>
+            <p><strong>Amount Recycled:</strong> ${recyclingEffort.amountRecycled} kg</p>
+            <p><strong>Date:</strong> ${recyclingEffort.recyclingDate}</p>
+          </div>
+          <div class="actions">
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
+          </div>
+        `;
+        recycleList.appendChild(div);
+      }
+    });
+  </script>
+</body>
+</html>

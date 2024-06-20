@@ -59,7 +59,7 @@ Replace your_generated_secret_key with the secret key you generated.
 
 Run Database Migrations
 
-npx sequelize-cli db:migrate
+sudo npx sequelize-cli db:migrate
 Start the Server
 
 npm start
@@ -81,7 +81,6 @@ Project Structure
 │   ├── recycling.html
 │   └── impact.html
 ├── .env
-├── .gitignore
 ├── package.json
 ├── README.md
 └── server.js
