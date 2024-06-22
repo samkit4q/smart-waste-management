@@ -132,7 +132,7 @@ app.post('/schedule', authMiddleware, async (req, res) => {
 // Recycling Effort route
 app.get('/recycle', authMiddleware, (req, res) => {
   console.log('Serving recycling page');
-  res.sendFile(path.join(__dirname, 'public/recycle.html'));
+  res.sendFile(path.join(__dirname, 'public/recycling.html'));
 });
 
 // Save Recycling Effort route
