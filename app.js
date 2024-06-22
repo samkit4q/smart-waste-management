@@ -26,19 +26,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Registration page route
 app.get('/register', (req, res) => {
-  console.log('Serving register page');
   res.sendFile(path.join(__dirname, 'public/register.html'));
 });
 
 // Registration route
 app.post('/register', async (req, res) => {
-  const { username, email, password, confirmPassword } = req.body;
+  const { username, email, password } = req.body;
 
-  // Basic validation
-  if (password !== confirmPassword) {
-    return res.status(400).send('Passwords do not match');
-  }
-
+  // Validate the input
   try {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -56,7 +51,6 @@ app.post('/register', async (req, res) => {
 
 // Login page route
 app.get('/login', (req, res) => {
-  console.log('Serving login page');
   res.sendFile(path.join(__dirname, 'public/login.html'));
 });
 
@@ -80,7 +74,7 @@ app.post('/login', async (req, res) => {
     // Create session
     req.session.userId = user.id;
 
-    // Handle successful login (e.g., create session, redirect to dashboard)
+    // Handle successful login
     res.redirect(`/dashboard`);
   } catch (error) {
     console.error('Error logging in:', error);
@@ -98,13 +92,11 @@ function authMiddleware(req, res, next) {
 
 // Dashboard route
 app.get('/dashboard', authMiddleware, (req, res) => {
-  console.log('Serving dashboard page');
-  res.sendFile(path.join(__dirname, 'public/dashboard.html'));
+  res.sendFile(path.join(__dirname, 'public','home.html'));
 });
 
 // Waste Schedule route
 app.get('/schedule', authMiddleware, (req, res) => {
-  console.log('Serving waste schedule page');
   res.sendFile(path.join(__dirname, 'public/schedule.html'));
 });
 
@@ -169,7 +161,7 @@ app.post('/recycle', authMiddleware, async (req, res) => {
 // Impact route
 app.get('/impact', authMiddleware, (req, res) => {
   console.log('Serving impact page');
-  res.sendFile(path.join(__dirname, 'public/impact.html'));
+  res.sendFile(path.join(__dirname, 'public/viewreport.html'));
 });
 
 // Logout route
