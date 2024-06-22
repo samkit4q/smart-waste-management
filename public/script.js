@@ -1,3 +1,28 @@
+// Handle registration form submission
+document.getElementById('registerForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission
+
+    // Get form values
+    var username = document.getElementById('registerUsername').value;
+    var email = document.getElementById('registerEmail').value;
+    var password = document.getElementById('registerPassword').value;
+
+    // Simulate successful registration (replace with actual registration logic)
+    if (username && email && password) {
+        // Display the success message
+        alert('Registration successful. You will be redirected to the login page.');
+
+        // Clear the form fields
+        document.getElementById('registerForm').reset();
+
+        // Redirect to login.html after successful registration
+        window.location.href = 'login.html';
+    } else {
+        alert('Please fill out all fields.');
+    }
+});
+
+// Handle login form submission
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent form submission
 
@@ -10,7 +35,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
     // Check if entered credentials match default credentials
     if (email === defaultEmail && password === defaultPassword) {
-        // Redirect to dashboard or home page after successful login
+        // Redirect to home.html after successful login
         window.location.href = 'home.html'; // Replace with your actual dashboard page
     } else {
         alert('Invalid email or password. Please try again.');
