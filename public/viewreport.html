@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Environmental report  Metrics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f7f7f7;
+    }
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    header h1 {
+      margin: 0;
+      flex: 1;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    nav ul li {
+      display: inline;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      background-color: #45a049;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+    nav ul li a:hover {
+      background-color: #3e8e41;
+    }
+    .container {
+      padding: 2rem;
+    }
+    .metrics-container {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .metric-card {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .metric-card h2 {
+      margin: 0 0 1rem 0;
+    }
+    .chart-container {
+      width: 100%;
+      height: 400px;
+    }
+    footer {
+      background-color: #f4f4f4;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+    footer p {
+      margin: 0.5rem 0;
+    }
+    footer a {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .metrics-container {
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Environmental Impact Metrics</h1>
+    <nav>
+      <ul>
+        <li><a href="dashboard.html">Home</a></li>
+        <li><a href="schedule.html">Waste Collection Schedules</a></li>
+        <li><a href="recycling.html">Track Recycling Efforts</a></li>
+        <li><a href="viewreports.html">Environmental report Metrics</a></li>
+        <li><a href="login.html">Logout</a></li> <!-- Redirects to login page -->
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="metrics-container">
+        <div class="metric-card">
+          <h2>Total Waste Collected</h2>
+          <p id="totalWaste">0 kg</p>
+        </div>
+        <div class="metric-card">
+          <h2>Total Items Recycled</h2>
+          <p id="totalRecycled">0 items</p>
+        </div>
+        <div class="metric-card">
+          <h2>Recycling Rate</h2>
+          <p id="recyclingRate">0%</p>
+        </div>
+        <div class="metric-card">
+          <h2>Environmental Impact</h2>
+          <div class="chart-container">
+            <canvas id="impactChart"></canvas> <!-- Ensure canvas element is here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p><a href="#">About Us</a> | <a href="#">Team</a></p>
+    <p>&copy; 2024 Waste Zero Management System</p>
+  </footer>
+
+  <!-- Include Chart.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Mock data for demonstration
+    const wasteData = [
+      { date: '2024-01-01', weight: 5 },
+      { date: '2024-01-02', weight: 3 },
+      { date: '2024-01-03', weight: 4 },
+    ];
+
+    const recycleData = [
+      { date: '2024-01-01', quantity: 2 },
+      { date: '2024-01-02', quantity: 3 },
+      { date: '2024-01-03', quantity: 1 },
+    ];
+
+    // Calculate total waste collected
+    const totalWaste = wasteData.reduce((sum, item) => sum + item.weight, 0);
+    document.getElementById('totalWaste').textContent = `${totalWaste} kg`;
+
+    // Calculate total items recycled
+    const totalRecycled = recycleData.reduce((sum, item) => sum + item.quantity, 0);
+    document.getElementById('totalRecycled').textContent = `${totalRecycled} items`;
+
+    // Calculate recycling rate
+    const recyclingRate = ((totalRecycled / (totalWaste + totalRecycled)) * 100).toFixed(2);
+    document.getElementById('recyclingRate').textContent = `${recyclingRate}%`;
+
+    // Create environmental impact chart
+    const ctx = document.getElementById('impactChart').getContext('2d');
+    const impactChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: wasteData.map(item => item.date),
+        datasets: [
+          {
+            label: 'Waste Collected (kg)',
+            data: wasteData.map(item => item.weight),
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1,
+          },
+          {
+            label: 'Items Recycled',
+            data: recycleData.map(item => item.quantity),
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+  </script>
+</body>
+</html>

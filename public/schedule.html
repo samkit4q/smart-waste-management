@@ -1,306 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Waste Collection Schedules</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    body {
-      font-family: 'Roboto', sans-serif;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      background-color: #f7f7f7;
-    }
-    header {
-      background-color: #4CAF50;
-      color: white;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    header h1 {
-      margin: 0;
-      flex: 1;
-    }
-    nav ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    nav ul li {
-      display: inline;
-    }
-    nav ul li a {
-      color: white;
-      text-decoration: none;
-      padding: 0.5rem 1rem;
-      background-color: #45a049;
-      border-radius: 4px;
-      transition: background-color 0.3s;
-    }
-    nav ul li a:hover {
-      background-color: #3e8e41;
-    }
-    .container {
-      padding: 2rem;
-    }
-    .schedule-container {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .schedule-list {
-      margin-top: 1rem;
-    }
-    .schedule-item {
-      background: white;
-      padding: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      margin-bottom: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .schedule-item p {
-      margin: 0;
-    }
-    .schedule-item .date-time {
-      display: flex;
-      flex-direction: column;
-    }
-    .schedule-item .actions {
-      display: flex;
-      gap: 0.5rem;
-    }
-    .schedule-item .actions button {
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    .schedule-item .actions .edit-btn {
-      background-color: #ffc107;
-      color: white;
-    }
-    .schedule-item .actions .delete-btn {
-      background-color: #dc3545;
-      color: white;
-    }
-    .hidden {
-      display: none;
-    }
-    footer {
-      background-color: #f4f4f4;
-      padding: 1rem 2rem;
-      text-align: center;
-    }
-    footer p {
-      margin: 0.5rem 0;
-    }
-    footer a {
-      color: #4CAF50;
-      text-decoration: none;
-    }
-    footer a:hover {
-      text-decoration: underline;
-    }
-    @media (max-width: 768px) {
-      nav ul {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .schedule-item {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .schedule-item .actions {
-        width: 100%;
-        justify-content: space-between;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule - Waste Zero</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Waste Collection Schedules</h1>
-    <nav>
-      <ul>
-        <li><a href="dashboard.html">Home</a></li>
-        <li><a href="schedule.html">Waste Collection Schedules</a></li>
-        <li><a href="recycling.html">Track Recycling Efforts</a></li>
-        <li><a href="impact.html">Environmental Impact Metrics</a></li>
-        <li><a href="login.html">Logout</a></li> <!-- Redirects to login page -->
-      </ul>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Waste Zero</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="home.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Logout</a>
+                </li>
+            </ul>
+        </div>
     </nav>
-  </header>
 
-  <main>
-    <div class="container">
-      <button id="createScheduleBtn">Create Schedule</button>
-      <div id="scheduleFormContainer" class="hidden">
-        <form id="scheduleForm">
-          <input type="hidden" name="userId" value="<%= userId %>">
-          <label for="scheduleDate">Date:</label>
-          <input type="date" id="scheduleDate" name="collectionDate" required>
-          <label for="scheduleTime">Time:</label>
-          <input type="time" id="scheduleTime" name="scheduleTime" required>
-          <label>
-            <input type="checkbox" name="isRecycled"> Is Recycled
-          </label>
-          <button type="submit">Save Schedule</button>
-        </form>
-      </div>
-      <div id="scheduleList" class="schedule-list">
-        <!-- Scheduled items will be dynamically added here -->
-      </div>
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <h1 class="display-4 text-center">Schedule Waste Collection</h1>
+        <p class="lead text-center">Select a date and time for your waste collection.</p>
+        <hr class="my-4">
+
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="schedule-form">
+                    <form>
+                        <div class="form-group">
+                            <label for="collectionDate">Select Date</label>
+                            <input type="date" class="form-control" id="collectionDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="collectionTime">Select Time</label>
+                            <input type="time" class="form-control" id="collectionTime" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Schedule Collection</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-  </main>
 
-  <footer>
-    <p><a href="#">About Us</a> | <a href="#">Team</a></p>
-    <p>&copy; 2024 Smart Waste Management System</p>
-  </footer>
+    <!-- Footer -->
+    <footer class="footer py-3 mt-5">
+        <div class="container text-center">
+            <span class="text-muted">© 2024 Waste Zero Management System</span>
+        </div>
+    </footer>
 
-  <script>
-    // Get references to DOM elements
-    const createScheduleBtn = document.getElementById('createScheduleBtn');
-    const scheduleFormContainer = document.getElementById('scheduleFormContainer');
-    const scheduleForm = document.getElementById('scheduleForm');
-    const scheduleList = document.getElementById('scheduleList');
-    let editingItem = null;
-
-    // Show the form when the "Create Schedule" button is clicked
-    createScheduleBtn.addEventListener('click', () => {
-      scheduleFormContainer.classList.toggle('hidden');
-      scheduleForm.reset();
-      editingItem = null;
-    });
-
-    // Handle form submission
-    scheduleForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const userId = scheduleForm.elements['userId'].value;
-      const date = scheduleForm.elements['collectionDate'].value;
-      const time = scheduleForm.elements['scheduleTime'].value;
-      const isRecycled = scheduleForm.elements['isRecycled'].checked;
-
-      // Validate date
-      const selectedDate = new Date(date);
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      if (selectedDate < today) {
-        alert('Please select a valid date.');
-        return;
-      }
-
-      const scheduleData = { userId, date, time, isRecycled };
-
-      if (editingItem) {
-        updateSchedule(editingItem, scheduleData);
-      } else {
-        addSchedule(scheduleData);
-      }
-
-      scheduleForm.reset();
-      scheduleFormContainer.classList.add('hidden');
-    });
-
-    // Function to add a schedule item to the list
-    function addSchedule(scheduleData) {
-      fetch('/schedule', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(scheduleData)
-      })
-      .then(response => response.json())
-      .then(data => {
-        const scheduleItem = document.createElement('div');
-        scheduleItem.className = 'schedule-item';
-        scheduleItem.dataset.id = data.id;
-        scheduleItem.innerHTML = `
-          <div class="date-time">
-            <p><strong>Date:</strong> ${scheduleData.date}</p>
-            <p><strong>Time:</strong> ${scheduleData.time}</p>
-            <p><strong>Recycled:</strong> ${scheduleData.isRecycled ? 'Yes' : 'No'}</p>
-          </div>
-          <div class="actions">
-            <button class="edit-btn">Edit</button>
-            <button class="delete-btn">Delete</button>
-          </div>
-        `;
-        scheduleList.appendChild(scheduleItem);
-
-        // Add event listeners for edit and delete buttons
-        const editBtn = scheduleItem.querySelector('.edit-btn');
-        const deleteBtn = scheduleItem.querySelector('.delete-btn');
-
-        editBtn.addEventListener('click', () => {
-          editSchedule(scheduleItem, scheduleData);
-        });
-
-        deleteBtn.addEventListener('click', () => {
-          deleteSchedule(scheduleItem);
-        });
-      })
-      .catch(error => console.error('Error adding schedule:', error));
-    }
-
-    // Function to edit a schedule item
-    function editSchedule(scheduleItem, scheduleData) {
-      scheduleForm.elements['collectionDate'].value = scheduleData.date;
-      scheduleForm.elements['scheduleTime'].value = scheduleData.time;
-      scheduleForm.elements['isRecycled'].checked = scheduleData.isRecycled;
-      scheduleFormContainer.classList.remove('hidden');
-      editingItem = scheduleItem;
-    }
-
-    // Function to update a schedule item
-    function updateSchedule(scheduleItem, scheduleData) {
-      fetch(`/schedule/${scheduleItem.dataset.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(scheduleData)
-      })
-      .then(response => response.json())
-      .then(data => {
-        scheduleItem.querySelector('.date-time').innerHTML = `
-          <p><strong>Date:</strong> ${scheduleData.date}</p>
-          <p><strong>Time:</strong> ${scheduleData.time}</p>
-          <p><strong>Recycled:</strong> ${scheduleData.isRecycled ? 'Yes' : 'No'}</p>
-        `;
-        editingItem = null;
-      })
-      .catch(error => console.error('Error updating schedule:', error));
-    }
-
-    // Function to delete a schedule item
-    function deleteSchedule(scheduleItem) {
-      fetch(`/schedule/${scheduleItem.dataset.id}`, {
-        method: 'DELETE'
-      })
-      .then(response => {
-        if (response.ok) {
-          scheduleList.removeChild(scheduleItem);
-        } else {
-          console.error('Error deleting schedule');
-        }
-      })
-      .catch(error => console.error('Error deleting schedule:', error));
-    }
-  </script>
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
