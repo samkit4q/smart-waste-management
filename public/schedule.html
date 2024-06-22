@@ -72,6 +72,26 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
+    <script>
+
+    document.getElementById('scheduleForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting the traditional way
+    
+        // Extract the entered data
+        var collectionDate = document.getElementById('collectionDate').value;
+        var collectionTime = document.getElementById('collectionTime').value;
+    
+        // Create a list item to display the entered data
+        var listItem = document.createElement('li');
+        listItem.textContent = `Collection Date: ${collectionDate}, Collection Time: ${collectionTime}`;
+    
+        // Add the list item to the list on the page
+        document.getElementById('collectionList').appendChild(listItem);
+    
+        // Optionally, clear the form fields after submission
+        document.getElementById('collectionDate').value = '';
+        document.getElementById('collectionTime').value = '';
+    });
+    </script>
 </body>
 </html>
